@@ -1,0 +1,78 @@
+// require thoughts and users models
+const { Thought, Users } = require('../models');
+
+// set up thoughts controller
+const thoughtCtrl = {
+
+    // GET all thoughts - api/thoughts
+   getAllThoughts(req, res) {
+      Thought.find({})
+      .then(dbThoughtData => res.json(dbThoughtData))
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err); 
+   });
+},
+// GET one thought by id - api/thoughts/:id
+getThoughtByID({ params }, res) {
+    Thought.findOne({ _id: params.id })
+    .select('-__v')
+    .sort({ _id: -1 })
+    .then(dbThoughtData => {
+        if (!dbThoughtData) {
+            res.status(404).json({
+                message: 'No thought found with this id. ❌'
+            });
+            return;
+        
+        }
+        res.json(dbThoughtData)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+    });
+},
+// POST api/thoughts aka create thought 
+addThought({ body }, res) {
+    Thought.create(body)
+    .then((ThoughtData) => {
+        return Users.findOneAndUpdate(
+            { _id: body.userId },
+            { $addToSet: { ThoughtData._id } },
+            { new: true }
+        );
+})
+    .then(dbUsersData => {
+        if (!dbUsersData) {
+            res.status(404).json({ message: 'No user found with this ID.' });
+            return;
+        }
+        res.json(dbUsersData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+    });
+},
+// PUT api/thoughts/:id
+// update thought by id 
+updateThought({ params, body }, res) {
+    Thought.findOneAndUpdate({
+        _id: params.thoughtId }, 
+        { $set: body },
+        { runValidators: true, new: true })
+        .then(updateThought => {
+            if (!updateThought) {
+                return res.status(404).json({ message: 'No thought found with this ID. ' });
+            }
+            return res.json({ message: "Success!" });
+        })
+        .catch(err => res.json(err));
+    },
+// DELETE api/thoughts/:id
+// delete thought 
+removeThought({ params }, res) {
+    Thought.findOneAndDelete({
+        
+
