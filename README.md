@@ -12,9 +12,19 @@ The goal of this project is to create an API for a social network web applicatio
     <img src="https://img.shields.io/github/last-commit/chaunnybby7/yilin-socialnetworkapi" >
 
 </p>
-  
 
-[Link to video]()
+Users Routes Walkthrough
+
+- GET all users
+- GET user by ID
+- POST (create) an user
+- PUT (update) user by ID
+- DELETE user by ID
+
+https://user-images.githubusercontent.com/97390473/169942488-95e554fa-4219-44c0-8426-b2c259e8314c.mp4
+
+
+
 
 
 ## Usage
