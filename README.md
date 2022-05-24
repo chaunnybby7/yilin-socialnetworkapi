@@ -24,6 +24,12 @@ Users Routes Walkthrough
 https://user-images.githubusercontent.com/97390473/169942488-95e554fa-4219-44c0-8426-b2c259e8314c.mp4
 
 
+Reaction Routes Walkthrough
+- POST (create) a single reaction to thought by ID
+- DELETE a reaction by ID from thought by ID
+
+
+https://user-images.githubusercontent.com/97390473/169943822-d647a860-593a-4e81-bb35-ee8c53d6ba2e.mp4
 
 
 
