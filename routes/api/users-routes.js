@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { route } = require('.');
 const { getAllUsers, getUserById, createUser, updateUser, deleteUser, addToFriendList, removefromFriendList } = require('../../controllers/users-controller');
 
 // Set up GET all and POST api/users. 
