@@ -39,7 +39,7 @@ addThought({ body }, res) {
     .then((ThoughtData) => {
         return Users.findOneAndUpdate(
             { _id: body.userId },
-            { $addToSet: { ThoughtData._id } },
+            { $addToSet: { thoughts: ThoughtData._id } },
             { new: true }
         );
 })
@@ -113,12 +113,12 @@ addReaction({ params, body }, res) {
     },
 // DELETE api/thoughts/:id/reactions
 // Delete reaction 
-removeReaction({ params}, res) {
-    Thought.findOneAndUpdate({ _id: params.thoughtId},
+removeReaction({ params }, res) {
+    Thought.findOneAndUpdate({ _id: params.thoughtId },
         { $pull: { reactions: { reactionId: params.reactionId }}},
         { new: true })
         .then((thought) => {
-            if (!thought) => {
+            if (!thought) {
                 res.status(404).json({ message: 'No reaction found with this ID. ' });
                 return;
             } res.json(thought)
