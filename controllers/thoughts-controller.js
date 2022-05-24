@@ -2,7 +2,7 @@
 const { Thought, Users } = require('../models');
 
 // set up thoughts controller
-const thoughtCtrl = {
+const thoughtController = {
 
     // GET all thoughts - api/thoughts
    getAllThoughts(req, res) {
@@ -14,7 +14,7 @@ const thoughtCtrl = {
    });
 },
 // GET one thought by id - api/thoughts/:id
-getThoughtByID({ params }, res) {
+getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
     .select('-__v')
     .sort({ _id: -1 })
@@ -113,17 +113,33 @@ addReaction({ params, body }, res) {
     },
 // DELETE api/thoughts/:id/reactions
 // Delete reaction 
-removeReaction({ params }, res) {
-    Thought.findOneAndUpdate({ _id: params.thoughtId },
-        { $pull: { reactions: { reactionId: params.reactionId }}},
-        { new: true })
+removeReaction({
+    params
+}, res) {
+    Thought.findOneAndUpdate({
+                _id: params.thoughtId
+            },
+            //allows to remove the reaction by id
+            {
+                $pull: {
+                    reactions: {
+                        reactionId: params.reactionId
+                    }
+                }
+            }, {
+                new: true
+            }
+        )
         .then((thought) => {
             if (!thought) {
-                res.status(404).json({ message: 'No reaction found with this ID. ' });
+                res.status(404).json({
+                    message: 'No reaction found with this id.'
+                });
                 return;
-            } res.json(thought)
+            }
+            res.json(thought)
         })
         .catch(err => res.json(err));
-    },
+},
 }
-module.exports = thoughtCtrl;
+module.exports = thoughtController;
