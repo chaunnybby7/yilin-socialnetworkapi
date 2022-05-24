@@ -54,3 +54,56 @@ updateUser({
         .catch(err => res.status(400).json(err));
 },
 
+// DELETE User
+deleteUser({
+    params
+}, res) {
+    User.findOneAndDelete({
+            _id: params.id
+        })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({
+                    message: 'No user found with this id.'
+                });
+                return;
+            }
+            return dbUserData;
+        })
+        .then(dbUserData => {
+            User.updateMany({
+                    _id: {
+                        $in: dbUserData.friends
+                    }
+                }, {
+                    $pull: {
+                        friends: params.userId
+                    }
+                })
+                .then(() => {
+                    //deletes user's thought associated with id
+                    Thought.deleteMany({
+                            username: dbUserData.username
+                        })
+                        .then(() => {
+                            res.json({
+                                message: 'User deleted successfully'
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.status(400).json(err);
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json(err);
+                })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        })
+},
+
+// ADD friends
