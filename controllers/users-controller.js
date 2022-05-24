@@ -133,3 +133,40 @@ addToFriendList({
             res.json(err)
         });
 },
+//DELETE friend 
+removefromFriendList({
+    params
+}, res) {
+    User.findOneAndDelete({
+            _id: params.thoghtId
+        })
+        .then(deletedFriend => {
+            if (!deletedFriend) {
+                return res.status(404).json({
+                    message: 'No friend found with this id.'
+                })
+            }
+            return User.findOneAndUpdate({
+                friends: params.friendId
+            }, {
+                $pull: {
+                    friends: params.friendId
+                }
+            }, {
+                new: true
+            });
+        })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({
+                    message: 'No friend found with this id.'
+                })
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => res.json(err));
+},
+};
+
+module.exports = userController;
