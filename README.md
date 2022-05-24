@@ -46,7 +46,7 @@ Friend Routes Walkthrough
 - POST a friend by ID
 - DELETE a friend by ID
 
-<a href="localhost:3001/api/users/628c53363cb335e5db4bcd7c/friends/628c397b0d3a5720826da809">Video Link</a>
+<a href="https://drive.google.com/file/d/1L53_EhjZT3_SyEqIvS0E4B8x8LZzTsxE/view">Video Link</a>
 
 
 ## Usage
