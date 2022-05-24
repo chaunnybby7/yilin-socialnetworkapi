@@ -32,6 +32,22 @@ Reaction Routes Walkthrough
 https://user-images.githubusercontent.com/97390473/169943822-d647a860-593a-4e81-bb35-ee8c53d6ba2e.mp4
 
 
+Thought Routes Walkthrough
+- GET all thoughts
+- GET thought by ID
+- POST a thought
+- PUT thought by ID
+- DELETE thought by ID
+
+<a href="https://drive.google.com/file/d/1y6XANYdSZQeJKPNR4tBuBVksOL6oeL41/view">Video Link</a>
+
+
+Friend Routes Walkthrough
+- POST a friend by ID
+- DELETE a friend by ID
+
+<a href="localhost:3001/api/users/628c53363cb335e5db4bcd7c/friends/628c397b0d3a5720826da809">Video Link</a>
+
 
 ## Usage
 
