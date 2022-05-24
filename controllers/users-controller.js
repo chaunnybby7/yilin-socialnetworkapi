@@ -46,6 +46,15 @@ getUserById({
 
 //POST /api/users
 // Create user 
+createUser({
+    body
+}, res) {
+    User.create(body)
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.status(400).json(err));
+},
+
+//Update user by id
 updateUser({
     params,
     body
@@ -121,7 +130,7 @@ deleteUser({
 },
 
 // ADD friends
-addToFriendList({
+addFriend({
     params
 }, res) {
     User.findOneAndUpdate({
@@ -148,7 +157,7 @@ addToFriendList({
         });
 },
 //DELETE friend 
-removefromFriendList({
+removeFriend({
     params
 }, res) {
     User.findOneAndDelete({
